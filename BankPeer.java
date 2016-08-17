@@ -148,9 +148,15 @@ public class BankPeer{
 				toClient = new PrintWriter( new OutputStreamWriter(socket.getOutputStream()), true );
 				
 				toClient.println("Connected to Bank Server.");
+				//toClient.println("Please Enter One Of The Following Commands:");
+				toClient.println("Please Type One Of The Following Commands:");
+				toClient.println("open (new username)");
+				toClient.println("start (existing username)");
+				toClient.println("exit");
+
 
 				while ( (s = fromClient.readLine()) != null ) {
-						
+
 					doCommand(s);
 				
 				}
@@ -187,6 +193,12 @@ public class BankPeer{
 						inSession = true;
 						name = s;
 						toClient.println("Starting account session: "+s);
+						toClient.println("Welcome " + name);
+						toClient.println("Please Type One Of The Following Commands:");
+						toClient.println("credit (amount)");
+						toClient.println("debit (amount)");
+						toClient.println("balance");
+						toClient.println("finish");
 						return;
 					}else{ 
 						toClient.println("There is no bank memeber by that name, try opening one.");	
@@ -207,6 +219,12 @@ public class BankPeer{
 				
 				
 			}else{ //user is in a named session
+				toClient.println("Please Type One Of The Following Commands:");
+				toClient.println("credit (amount)");
+				toClient.println("debit (amount)");
+				toClient.println("balance");
+				toClient.println("finish");
+				
 				
 				if(cmd.startsWith("credit")){//
 				
@@ -244,6 +262,10 @@ public class BankPeer{
 					inSession = false;
 					name = null;
 					toClient.println("Ending account session.");
+					toClient.println("Please Type One Of The Following Commands:");
+					toClient.println("open (new username)");
+					toClient.println("start (existing username)");
+					toClient.println("exit");
 					return;
 
 				}else{
